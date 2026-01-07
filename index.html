@@ -25,10 +25,28 @@
             line-height: 1.6;
         }
 
+        /* Main Content Container */
         .container {
             max-width: 800px;
-            margin: 0 auto;
+            margin: 20px auto 0 auto;
             padding: 15px;
+        }
+
+        /* --- UPDATED: Aligned Header Image Styles (Full Height) --- */
+        .header-image-wrapper {
+            width: 100%;
+            /* Removed max-height so it shows fully */
+            border-radius: 15px;
+            border: 2px solid var(--accent-pink);
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.3);
+            margin-bottom: 20px;
+            overflow: hidden; /* Ensures the image corners are clipped by border-radius */
+        }
+
+        .header-image-wrapper img {
+            width: 100%;
+            height: auto; /* Changed to auto so it maintains aspect ratio and shows full height */
+            display: block;
         }
 
         /* --- Header & Logo Styling --- */
@@ -37,7 +55,7 @@
             align-items: center;
             justify-content: center;
             gap: 20px;
-            padding: 30px 10px;
+            padding: 10px 10px 30px 10px;
             border-bottom: 2px solid var(--accent-pink);
             margin-bottom: 30px;
             flex-wrap: wrap; 
@@ -262,7 +280,7 @@
             max-width: 600px;
             box-shadow: 0 0 30px rgba(0, 255, 157, 0.3);
             position: relative;
-            max-height: 80vh; /* Scrollable if too long */
+            max-height: 80vh; 
             overflow-y: auto;
         }
 
@@ -322,14 +340,18 @@
 <body>
 
 <div class="container">
+    <div class="header-image-wrapper">
+        <img src="image.jpg" alt="Romeo & Juliet Gen Alpha Style Banner">
+    </div>
+
     <header>
         <div class="logo-frame">
             <img src="logo.png" alt="EFL Hub Logo">
         </div>
         <div class="header-text">
             <h1>Romeo & Juliet 💔📱</h1>
-            <div class="subtitle">Act 2, Scene 2 (Excerpt): The Gen Alpha Remaster</div>
-            <button class="glossary-btn" onclick="openModal()">📖 Glossary</button>
+            <div class="subtitle">Act 2, Scene 2: The Gen Alpha Remaster</div>
+            <button class="glossary-btn" onclick="openModal()">📖 Slang Glossary</button>
         </div>
     </header>
 
