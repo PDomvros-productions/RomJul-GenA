@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romeo & Juliet: The Gen Alpha Cut</title>
+    <style>
+        :root {
+            --bg-color: #0f0f12;
+            --text-color: #e0e0e0;
+            --accent-pink: #ff007f;
+            --accent-green: #00ff9d;
+            --chat-bubble-romeo: #1a1a2e;
+            --chat-bubble-juliet: #2e1a25;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-mono: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        /* --- Header & Logo Styling --- */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 30px 10px;
+            border-bottom: 2px solid var(--accent-pink);
+            margin-bottom: 30px;
+            flex-wrap: wrap; 
+            position: relative;
+        }
+
+        .logo-frame {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid var(--accent-green);
+            overflow: hidden;
+            background: white; 
+            flex-shrink: 0;
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.4);
+        }
+
+        .logo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-text {
+            text-align: left;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--accent-pink);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+            line-height: 1.1;
+            text-shadow: 2px 2px 0px var(--accent-green);
+        }
+
+        .subtitle {
+            font-family: var(--font-mono);
+            color: #ccc;
+            margin-top: 5px;
+            font-size: 0.9rem;
+        }
+
+        /* Glossary Button */
+        .glossary-btn {
+            background: var(--accent-pink);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            box-shadow: 0 0 10px rgba(255, 0, 127, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .glossary-btn:hover {
+            transform: scale(1.05);
+            background: #d4006a;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .header-text {
+                text-align: center;
+            }
+            h1 { font-size: 1.8rem; }
+        }
+
+        h2 {
+            color: var(--accent-green);
+            border-left: 5px solid var(--accent-pink);
+            padding-left: 15px;
+            margin-top: 40px;
+            font-size: 1.5rem;
+        }
+
+        .scene-setup {
+            background: #1e1e24;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px dashed var(--accent-green);
+            margin-bottom: 20px;
+            font-family: var(--font-mono);
+            color: var(--accent-green);
+            font-size: 0.9rem;
+        }
+
+        /* --- Chat Script Styling --- */
+        .script-line {
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            border-radius: 12px;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .role-Romeo {
+            background-color: var(--chat-bubble-romeo);
+            border-left: 4px solid #4a4eff;
+            margin-right: 15px;
+        }
+
+        .role-Juliet {
+            background-color: var(--chat-bubble-juliet);
+            border-right: 4px solid var(--accent-pink);
+            margin-left: 15px;
+            text-align: right;
+        }
+
+        .character-name {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .role-Romeo .character-name { color: #8eaaff; }
+        .role-Juliet .character-name { color: #ff8eaf; }
+
+        .stage-direction {
+            font-style: italic;
+            color: #888;
+            font-size: 0.85rem;
+            text-align: center;
+            margin: 20px 0;
+            padding: 0 10px;
+        }
+
+        /* --- Comprehension Section --- */
+        .comp-section {
+            background-color: #16161a;
+            border: 2px solid var(--accent-pink);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 40px;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.2);
+        }
+
+        .quiz-question {
+            margin-bottom: 25px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+
+        .quiz-question:last-child { border-bottom: none; }
+
+        .question-text {
+            font-weight: bold;
+            color: var(--accent-green);
+            margin-bottom: 12px;
+            display: block;
+            font-size: 1rem;
+        }
+
+        .options label {
+            display: block;
+            margin: 8px 0;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .options label:hover {
+            background: rgba(255, 0, 127, 0.1);
+        }
+
+        /* --- Feedback Styles --- */
+        .feedback {
+            margin-top: 10px;
+            font-weight: bold;
+            font-family: var(--font-mono);
+            padding: 10px;
+            border-radius: 5px;
+            display: none; 
+        }
+
+        .feedback.correct {
+            display: block;
+            color: #00ff9d;
+            border: 1px solid #00ff9d;
+            background: rgba(0, 255, 157, 0.1);
+        }
+
+        .feedback.wrong {
+            display: block;
+            color: #ff007f;
+            border: 1px solid #ff007f;
+            background: rgba(255, 0, 127, 0.1);
+        }
+
+        /* --- GLOSSARY MODAL STYLES --- */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.85); 
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-content {
+            background-color: #1e1e24;
+            margin: 5% auto; 
+            padding: 25px;
+            border: 2px solid var(--accent-green);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 0 30px rgba(0, 255, 157, 0.3);
+            position: relative;
+            max-height: 80vh; /* Scrollable if too long */
+            overflow-y: auto;
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            position: sticky;
+            top: 0;
+            right: 0;
+        }
+
+        .close-btn:hover {
+            color: var(--accent-pink);
+        }
+
+        .glossary-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .glossary-def {
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .glossary-term {
+            color: var(--accent-pink);
+            font-weight: bold;
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .glossary-context {
+            font-style: italic;
+            color: #888;
+            font-size: 0.8rem;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 0.85rem;
+            color: #666;
+            border-top: 1px solid #333;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo-frame">
+            <img src="logo.png" alt="EFL Hub Logo">
+        </div>
+        <div class="header-text">
+            <h1>Romeo & Juliet 💔📱</h1>
+            <div class="subtitle">Act 2, Scene 2 (Excerpt): The Gen Alpha Remaster</div>
+            <button class="glossary-btn" onclick="openModal()">📖 Glossary</button>
+        </div>
+    </header>
+
+    <div class="scene-setup">
+        SCENE: The Capulet Orchard (The Opp’s Base).<br>
+        ROMEO: A Simp with maxed-out aesthetics but zero chill.<br>
+        JULIET: The Main Character. Verified status.
+    </div>
+
+    <div id="script-content">
+        
+        <div class="script-line role-Romeo">
+            <span class="character-name">ROMEO</span>
+            Bro is literally yapping about my Ls but he’s never even been cooked.
+        </div>
+
+        <div class="script-line role-Romeo">
+            <span class="character-name">ROMEO</span>
+            Hold up, pause. What is that aura flashing through the screen?<br>
+            It’s the East, and Juliet is the Main Character.<br>
+            Glow up, Queen, and ratio the jealous moon,<br>
+            Who is already down bad and looking mid with FOMO,<br>
+            Because you, her follower, are mogging her so hard.<br>
+            Don’t be an NPC in her chat, since she’s a hater;<br>
+            Her purity fit is giving sick and green vibes,<br>
+            And only unc-status noobs wear that; delete it.<br>
+            It is the CEO of my heart, O, it is my pookie!<br>
+            O, I wish she knew she was the one!<br>
+            She’s yapping, yet she’s saying nothing: what’s the plot?<br>
+            Her eyes are sliding into my DMs; I’m finna reply.<br>
+            I’m doing too much, it’s not me she’s subtweeting:<br>
+            Two of the most goated stars in the entire lobby,<br>
+            Having to go AFK, asked her eyes<br>
+            To cover their shift in the skybox till they respawn.<br>
+            What if her eyes were up there, and the stars in her head?<br>
+            The glow of her skincare routine would mog those stars,<br>
+            Like Light Mode vs. Dark Mode; her eyes in the cloud<br>
+            Would stream so bright through the glitches<br>
+            That the birds would vibe and think the server reset to day.<br>
+            Clock how she rests her mewing streak on her hand!<br>
+            O, that I was the drip on that hand,<br>
+            So I could graze that cheek! I’m down catastrophic.
+        </div>
+
+        <div class="script-line role-Juliet">
+            <span class="character-name">JULIET</span>
+            Bruh.
+        </div>
+
+        <div class="script-line role-Romeo">
+            <span class="character-name">ROMEO</span>
+            She’s giving voice reveal.<br>
+            O, yap again, Skibidi Angel! For you are<br>
+            As goated to this night, hovering over my hitbox,<br>
+            As a dev from the admin team<br>
+            To the white-upturned NPC eyes<br>
+            Of mortals that lag out just looking at him<br>
+            When he rides the lazy-loading clouds<br>
+            And surfs the air like Subway Surfers.
+        </div>
+
+        <div class="script-line role-Juliet">
+            <span class="character-name">JULIET</span>
+            O Romeo, Romeo! What is the lore behind you being Romeo?<br>
+            Ghost your dad and change your gamertag;<br>
+            Or, if you won’t, just hard launch us,<br>
+            And I’ll unsubscribe from the Capulet fandom.
+        </div>
+
+        <div class="stage-direction">[Aside] Should I keep lurking or slide in the chat now?</div>
+
+        <div class="script-line role-Juliet">
+            <span class="character-name">JULIET</span>
+            It’s literally just your handle that is my opp;<br>
+            You are you, even if you’re not verified as a Montague.<br>
+            What is a Montague? It’s not a skin, not a mod,<br>
+            Not a glitch, nor a texture, nor any other asset<br>
+            Belonging to a Gigachad. O, reroll your username!<br>
+            What’s in a username? That which we call a rose<br>
+            By any other tag would still have infinite rizz;<br>
+            So Romeo would, if he wasn't labeled Romeo,<br>
+            Keep that maxed-out aura points he owns<br>
+            Without that title. Romeo, fanum tax your name,<br>
+            And for that name which is just an NPC label,<br>
+            Take my whole inventory.
+        </div>
+
+        <div class="script-line role-Romeo">
+            <span class="character-name">ROMEO</span>
+            Bet. I’m locking in on that.<br>
+            Just call me your pookie, and I’ll respawn as a new build;<br>
+            From now on, the user "Romeo" is banned.
+        </div>
+
+        <div class="script-line role-Juliet">
+            <span class="character-name">JULIET</span>
+            Who is this random camping in the dark<br>
+            That just stream-sniped my monologue?
+        </div>
+
+        <div class="script-line role-Romeo">
+            <span class="character-name">ROMEO</span>
+            I literally can’t drop my user ID:<br>
+            My handle, S-tier baddie, is mid to me now,<br>
+            Because it’s an opp to you.<br>
+            If I had it in the chat logs, I’d report it for toxicity.
+        </div>
+
+        <div class="script-line role-Juliet">
+            <span class="character-name">JULIET</span>
+            I haven’t even heard a hundred seconds of your voice chat,<br>
+            Yet I clock the voice reveal:<br>
+            Are you not Romeo, and a Montague opp?
+        </div>
+
+        <div class="script-line role-Romeo">
+            <span class="character-name">ROMEO</span>
+            Neither, bestie, if you think that’s cringe.
+        </div>
+
+        <div class="script-line role-Juliet">
+            <span class="character-name">JULIET</span>
+            How did you clip into this map, and what’s the lore?<br>
+            The orchard firewall is high and hard to hack,<br>
+            And it’s permadeath, considering your skin,<br>
+            If any of my squad catches you lurking.
+        </div>
+
+        <div class="script-line role-Romeo">
+            <span class="character-name">ROMEO</span>
+            With the movement hacks of love I glitched over these walls,<br>
+            For geometry barriers can’t patch love out,<br>
+            And whatever love can grind for, love will try to main;<br>
+            Therefore your squad is not a boss fight to me.
+        </div>
+
+        <div class="script-line role-Juliet">
+            <span class="character-name">JULIET</span>
+            If they see you, you’re getting cooked. Literally unalived.
+        </div>
+
+        <div class="script-line role-Romeo">
+            <span class="character-name">ROMEO</span>
+            Big yikes, there’s more damage in your side-eye<br>
+            Than twenty of their tools: just give me the "uwu" eyes,<br>
+            And I have god-mode against their beef.
+        </div>
+
+    </div>
+
+    <div class="comp-section">
+        <h2>🧠 Vibe Check: Reading Comp</h2>
+        <p style="margin-bottom: 20px;">No cap, did you actually read the logs or did you just skim? Tap an answer to check your aura points.</p>
+
+        <div class="quiz-question" id="q1">
+            <span class="question-text">1. Romeo says the Moon is "down bad" and "looking mid" because:</span>
+            <div class="options">
+                <label><input type="radio" name="q1" value="wrong"> The Moon forgot to update its drivers.</label>
+                <label><input type="radio" name="q1" value="correct"> Juliet is the Main Character and mogging the Moon with her glow.</label>
+                <label><input type="radio" name="q1" value="wrong"> The server is glitching out.</label>
+                <label><input type="radio" name="q1" value="wrong"> The Moon is an NPC that got banned.</label>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="quiz-question" id="q2">
+            <span class="question-text">2. What is Juliet’s main beef with Romeo in her monologue?</span>
+            <div class="options">
+                <label><input type="radio" name="q2" value="wrong"> His aesthetics are trash.</label>
+                <label><input type="radio" name="q2" value="wrong"> He didn't like her latest post.</label>
+                <label><input type="radio" name="q2" value="correct"> His gamertag (Montague) makes him an opp.</label>
+                <label><input type="radio" name="q2" value="wrong"> He plays on mobile instead of PC.</label>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="quiz-question" id="q3">
+            <span class="question-text">3. How does Romeo claim he got past the orchard firewall (walls)?</span>
+            <div class="options">
+                <label><input type="radio" name="q3" value="correct"> He used the movement hacks of love to glitch over them.</label>
+                <label><input type="radio" name="q3" value="wrong"> He bribed the mods.</label>
+                <label><input type="radio" name="q3" value="wrong"> He was AFK and just spawned there.</label>
+                <label><input type="radio" name="q3" value="wrong"> He used a ladder asset he found in his inventory.</label>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="quiz-question" id="q4">
+            <span class="question-text">4. What does Juliet warn will happen if her squad finds Romeo lurking?</span>
+            <div class="options">
+                <label><input type="radio" name="q4" value="wrong"> They will ask for his autograph.</label>
+                <label><input type="radio" name="q4" value="wrong"> He will get ratioed on Twitter.</label>
+                <label><input type="radio" name="q4" value="correct"> He will be literally unalived (cooked).</label>
+                <label><input type="radio" name="q4" value="wrong"> They will just kick him from the lobby.</label>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+         <div class="quiz-question" id="q5">
+            <span class="question-text">5. What analogy does Juliet use to say names don't matter?</span>
+            <div class="options">
+                <label><input type="radio" name="q5" value="wrong"> A skin by any other rarity is still cracked.</label>
+                <label><input type="radio" name="q5" value="correct"> A rose by any other tag would still have infinite rizz.</label>
+                <label><input type="radio" name="q5" value="wrong"> A glitch by any other patch is still buggy.</label>
+                <label><input type="radio" name="q5" value="wrong"> A verify badge doesn't make you a Gigachad.</label>
+            </div>
+            <div class="feedback"></div>
+        </div>
+    </div>
+
+    <footer>
+        🎭✍️ Created by Panagiotis Domvros, English and Drama Teacher, All Rights Reserved ✍️🎭
+    </footer>
+</div>
+
+<div id="glossaryModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <h2 style="margin-top:0; border-bottom:2px solid var(--accent-pink); padding-bottom:10px;">📚 Exhaustive Gen Alpha Dictionary</h2>
+    
+    <div class="glossary-grid">
+        <div class="glossary-def"><span class="glossary-term">AFK</span> <span class="glossary-context">(Gaming)</span> "Away From Keyboard." Someone who is not present or distracted.</div>
+        <div class="glossary-def"><span class="glossary-term">Asset</span> <span class="glossary-context">(Gaming)</span> An object, sound, or item in a video game file. Used here to mean a physical part of a person (like a hand/foot).</div>
+        <div class="glossary-def"><span class="glossary-term">Aura / Aura Points</span> <span class="glossary-context">(Slang)</span> A mystical energy or "cool factor." You gain aura by doing cool things, lose it by doing embarrassing things.</div>
+        <div class="glossary-def"><span class="glossary-term">Baddie</span> <span class="glossary-context">(Slang)</span> A very attractive and confident person (usually female).</div>
+        <div class="glossary-def"><span class="glossary-term">Banned</span> <span class="glossary-context">(Gaming)</span> Blocked from the server. Used here to mean "name is forbidden."</div>
+        <div class="glossary-def"><span class="glossary-term">Bet</span> <span class="glossary-context">(Slang)</span> "Yes," "Okay," or "I agree."</div>
+        <div class="glossary-def"><span class="glossary-term">Boss Fight</span> <span class="glossary-context">(Gaming)</span> A difficult challenge or enemy at the end of a level.</div>
+        <div class="glossary-def"><span class="glossary-term">Build</span> <span class="glossary-context">(Gaming)</span> The specific combination of skills/items a character has. Romeo says he will "respawn as a new build" (change his identity).</div>
+        <div class="glossary-def"><span class="glossary-term">Camping</span> <span class="glossary-context">(Gaming)</span> Staying in one spot (usually hidden) for a long time to ambush others.</div>
+        <div class="glossary-def"><span class="glossary-term">CEO of...</span> <span class="glossary-context">(Slang)</span> The boss or master of something (e.g., "CEO of my heart").</div>
+        <div class="glossary-def"><span class="glossary-term">Clip Into</span> <span class="glossary-context">(Gaming)</span> To glitch through a solid object (like a wall) that you shouldn't be able to pass through.</div>
+        <div class="glossary-def"><span class="glossary-term">Cooked</span> <span class="glossary-context">(Slang)</span> To be defeated, doomed, or in big trouble. Also "roasted" (insulted).</div>
+        <div class="glossary-def"><span class="glossary-term">Dev</span> <span class="glossary-context">(Gaming)</span> Developer. The creators/admins of the game (gods).</div>
+        <div class="glossary-def"><span class="glossary-term">Down Bad / Down Catastrophic</span> <span class="glossary-context">(Slang)</span> Desperately in love or obsessed with someone. "Catastrophic" is an extreme version.</div>
+        <div class="glossary-def"><span class="glossary-term">Drip</span> <span class="glossary-context">(Slang)</span> Extremely fashionable outfit or style.</div>
+        <div class="glossary-def"><span class="glossary-term">Fanum Tax</span> <span class="glossary-context">(Slang)</span> To steal a portion of someone's food (popularized by streamer Fanum). Used here to mean "take/remove."</div>
+        <div class="glossary-def"><span class="glossary-term">Finna</span> <span class="glossary-context">(AAVE/Slang)</span> "Fixing to" or "Going to."</div>
+        <div class="glossary-def"><span class="glossary-term">Firewall</span> <span class="glossary-context">(Tech)</span> Security system. Used here to represent the orchard walls.</div>
+        <div class="glossary-def"><span class="glossary-term">FOMO</span> <span class="glossary-context">(Slang)</span> Fear Of Missing Out.</div>
+        <div class="glossary-def"><span class="glossary-term">Gigachad</span> <span class="glossary-context">(Meme)</span> The ultimate masculine, perfect man.</div>
+        <div class="glossary-def"><span class="glossary-term">Glitch</span> <span class="glossary-context">(Gaming)</span> A bug in the system. Used here as "moving unexpectedly" or "bypassing walls."</div>
+        <div class="glossary-def"><span class="glossary-term">Glow Up</span> <span class="glossary-context">(Slang)</span> An incredible transformation in appearance.</div>
+        <div class="glossary-def"><span class="glossary-term">Goated</span> <span class="glossary-context">(Slang)</span> G.O.A.T. (Greatest of All Time). Being the best.</div>
+        <div class="glossary-def"><span class="glossary-term">God-mode</span> <span class="glossary-context">(Gaming)</span> A cheat code that makes you invincible/cannot take damage.</div>
+        <div class="glossary-def"><span class="glossary-term">Grind</span> <span class="glossary-context">(Gaming)</span> To work hard repetitively to achieve a goal.</div>
+        <div class="glossary-def"><span class="glossary-term">Handle / Gamertag</span> <span class="glossary-context">(Tech)</span> Username or online identity.</div>
+        <div class="glossary-def"><span class="glossary-term">Hard Launch</span> <span class="glossary-context">(Social Media)</span> Suddenly revealing a relationship to the public with a serious photo (opposite of "soft launch" where you hide their face).</div>
+        <div class="glossary-def"><span class="glossary-term">Hitbox</span> <span class="glossary-context">(Gaming)</span> The invisible box around a character where they can take damage. Romeo refers to his body as his "hitbox."</div>
+        <div class="glossary-def"><span class="glossary-term">L / Take an L</span> <span class="glossary-context">(Slang)</span> "Loss." A failure or embarrassment.</div>
+        <div class="glossary-def"><span class="glossary-term">Lagging</span> <span class="glossary-context">(Gaming)</span> Moving slowly or freezing due to bad internet connection.</div>
+        <div class="glossary-def"><span class="glossary-term">Lazy-loading</span> <span class="glossary-context">(Tech)</span> When images/clouds only load when you get close to them to save memory.</div>
+        <div class="glossary-def"><span class="glossary-term">Lobby</span> <span class="glossary-context">(Gaming)</span> The waiting area before a game starts. Used here to mean "the universe/sky."</div>
+        <div class="glossary-def"><span class="glossary-term">Locking In</span> <span class="glossary-context">(Slang)</span> Getting hyper-focused and serious.</div>
+        <div class="glossary-def"><span class="glossary-term">Lore</span> <span class="glossary-context">(Slang)</span> The backstory or history of a character.</div>
+        <div class="glossary-def"><span class="glossary-term">Main Character</span> <span class="glossary-context">(Slang)</span> Someone who acts like they are the protagonist of reality.</div>
+        <div class="glossary-def"><span class="glossary-term">Mewing</span> <span class="glossary-context">(Slang)</span> Holding tongue to roof of mouth to improve jawline. A "mewing streak" is doing it for days in a row.</div>
+        <div class="glossary-def"><span class="glossary-term">Mid</span> <span class="glossary-context">(Slang)</span> Mediocre, average, or low quality.</div>
+        <div class="glossary-def"><span class="glossary-term">Mogging</span> <span class="glossary-context">(Slang)</span> Being significantly better looking or more dominant than someone else.</div>
+        <div class="glossary-def"><span class="glossary-term">No Cap</span> <span class="glossary-context">(Slang)</span> "No lie." Truth.</div>
+        <div class="glossary-def"><span class="glossary-term">NPC</span> <span class="glossary-context">(Gaming)</span> Non-Player Character. Someone who can't think for themselves or is just background decoration.</div>
+        <div class="glossary-def"><span class="glossary-term">Opp</span> <span class="glossary-context">(Slang)</span> Opposition/Enemy.</div>
+        <div class="glossary-def"><span class="glossary-term">Permadeath</span> <span class="glossary-context">(Gaming)</span> Permanent death. If you die, you cannot respawn.</div>
+        <div class="glossary-def"><span class="glossary-term">Pookie</span> <span class="glossary-context">(Slang)</span> Cute nickname for a partner.</div>
+        <div class="glossary-def"><span class="glossary-term">Ratio</span> <span class="glossary-context">(Social Media)</span> Getting more replies/likes than the original post, effectively winning the argument.</div>
+        <div class="glossary-def"><span class="glossary-term">Reroll</span> <span class="glossary-context">(Gaming)</span> To restart or generate a new character/username to get better stats.</div>
+        <div class="glossary-def"><span class="glossary-term">Respawn</span> <span class="glossary-context">(Gaming)</span> To come back to life after dying.</div>
+        <div class="glossary-def"><span class="glossary-term">Rizz</span> <span class="glossary-context">(Slang)</span> Charisma; ability to attract others.</div>
+        <div class="glossary-def"><span class="glossary-term">S-Tier</span> <span class="glossary-context">(Gaming)</span> The highest ranking (Super tier). Above A-tier.</div>
+        <div class="glossary-def"><span class="glossary-term">Simp</span> <span class="glossary-context">(Slang)</span> Someone who is overly desperate for someone's attention.</div>
+        <div class="glossary-def"><span class="glossary-term">Skibidi</span> <span class="glossary-context">(Meme)</span> A nonsense word from "Skibidi Toilet" meme. Can mean "cool," "bad," or just general chaos.</div>
+        <div class="glossary-def"><span class="glossary-term">Skin</span> <span class="glossary-context">(Gaming)</span> The appearance/outfit of a character.</div>
+        <div class="glossary-def"><span class="glossary-term">Skybox</span> <span class="glossary-context">(Gaming)</span> The background scenery (sky/clouds) in a video game level.</div>
+        <div class="glossary-def"><span class="glossary-term">Stream-sniped</span> <span class="glossary-context">(Gaming)</span> Watching someone's live stream to find their location and attack them. Used here to mean "spying."</div>
+        <div class="glossary-def"><span class="glossary-term">Subtweeting</span> <span class="glossary-context">(Social Media)</span> Talking about someone without tagging them directly.</div>
+        <div class="glossary-def"><span class="glossary-term">Unalived</span> <span class="glossary-context">(Slang)</span> "Killed." (Used to avoid censorship algorithms).</div>
+        <div class="glossary-def"><span class="glossary-term">Unc-Status</span> <span class="glossary-context">(Slang)</span> "Uncle status." Being old or out of touch.</div>
+        <div class="glossary-def"><span class="glossary-term">UwU</span> <span class="glossary-context">(Slang)</span> An emoticon face showing cuteness/softness.</div>
+        <div class="glossary-def"><span class="glossary-term">Verified</span> <span class="glossary-context">(Social Media)</span> Having the blue checkmark. Being official/important.</div>
+        <div class="glossary-def"><span class="glossary-term">Yapping</span> <span class="glossary-context">(Slang)</span> Talking too much, often about nonsense.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+    // Logic for Quiz
+    document.querySelectorAll('.quiz-question').forEach(question => {
+        const inputs = question.querySelectorAll('input[type="radio"]');
+        const feedbackDiv = question.querySelector('.feedback');
+
+        inputs.forEach(input => {
+            input.addEventListener('change', () => {
+                if (input.value === 'correct') {
+                    feedbackDiv.textContent = "✨ W! You cooked that answer. Pure sigma energy.";
+                    feedbackDiv.className = "feedback correct";
+                } else {
+                    feedbackDiv.textContent = "💀 L take. You're lagging. Try again.";
+                    feedbackDiv.className = "feedback wrong";
+                }
+            });
+        });
+    });
+
+    // Logic for Glossary Modal
+    const modal = document.getElementById("glossaryModal");
+
+    function openModal() {
+        modal.style.display = "block";
+    }
+
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    // Close if user clicks outside the content box
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+</body>
+</html>
